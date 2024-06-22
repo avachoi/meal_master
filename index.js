@@ -3,6 +3,7 @@ const img = document.querySelector("#itemImg");
 const itemName = document.querySelector("#itemName");
 const youtube = document.querySelector("#youtubeLink");
 const instruction = document.querySelector("#instruction");
+const subList = document.querySelector("#subList");
 
 async function loadList() {
 	const response = await fetch(
@@ -13,9 +14,22 @@ async function loadList() {
 	categories.categories.forEach((cat) => {
 		const category = document.createElement("li");
 		category.innerHTML = cat.strCategory;
+		category.addEventListener("click", () => selectCategory(cat.strCategory));
 		list.appendChild(category);
 	});
 }
+
+// async function selectCategory(category) {
+// 	const response = await fetch(
+// 		`http://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`
+// 	);
+// 	const obj = await response.json();
+// 	const meals = obj.meals;
+// 	meals.forEach((el) => {
+// 		const meal = document.createElement("li");
+// 		meal.innerHTML = el.strMeal;
+// 	});
+// }
 
 async function loadItem(id) {
 	const response = await fetch(
