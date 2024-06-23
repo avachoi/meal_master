@@ -4,73 +4,91 @@ const itemName = document.querySelector("#itemName");
 const youtube = document.querySelector("#youtubeLink");
 const instruction = document.querySelector("#instruction");
 const subList = document.querySelector("#subList");
+const form = document.querySelector("#form");
+const searchInput = document.querySelector("#searchInput");
+const searchBtn = document.querySelector("#searchBtn");
 
-async function fetchWithCacheClear(url) {
-	const response = await fetch(url, {
-		method: "GET",
-		headers: {
-			"Cache-Control": "no-cache",
-			Pragma: "no-cache",
-		},
-	});
-	const data = await response.json();
-	return data;
+const CORS_PROXY = "https://api.allorigins.win/get?url=";
+
+async function fetchWithCORS(url) {
+	try {
+		const response = await fetch(CORS_PROXY + encodeURIComponent(url));
+		if (!response.ok) {
+			throw new Error(`HTTP error! status: ${response.status}`);
+		}
+		const data = await response.json();
+		return JSON.parse(data.contents);
+	} catch (error) {
+		console.error("Error fetching data:", error);
+	}
 }
 
 async function loadList() {
-	try {
-		const response = await fetch(
-			`http://www.themealdb.com/api/json/v1/1/categories.php`
-		);
-		const categories = await response.json();
+	const url = `http://www.themealdb.com/api/json/v1/1/categories.php`;
+	const categories = await fetchWithCORS(url);
+	if (categories) {
 		console.log(categories);
 		categories.categories.forEach((cat) => {
 			const category = document.createElement("li");
 			category.innerHTML = cat.strCategory;
-
 			list.appendChild(category);
 			category.addEventListener("click", () => selectCategory(cat.strCategory));
 		});
-	} catch (error) {
-		console.error("Error fetching categories:", error);
 	}
 }
 
 async function selectCategory(category) {
-	try {
-		const response = await fetch(
-			`http://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`
-		);
-		const obj = await response.json();
+	const url = `http://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
+	const obj = await fetchWithCORS(url);
+	if (obj) {
 		const meals = obj.meals;
-		subList.innerHTML = "";
+		subList.innerHTML = ""; // Clear previous meals
 		meals.forEach((el) => {
 			const meal = document.createElement("li");
 			meal.innerHTML = el.strMeal;
-			subList.appendChild(meal);
 			meal.addEventListener("click", () => loadItem(el.idMeal));
+			subList.appendChild(meal);
 		});
-	} catch (error) {
-		console.error("Error fetching subList:", error);
 	}
 }
 
 async function loadItem(id) {
-	try {
-		const response = await fetch(
-			`http://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
-		);
-		const data = await response.json();
+	const url = `http://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+	const data = await fetchWithCORS(url);
+	if (data) {
+		subList.innerHTML = "";
 		const item = data.meals[0];
-		console.log("item", item);
+		// console.log("item", item);
 		img.src = item.strMealThumb;
 		itemName.innerHTML = item.strMeal;
 		youtube.href = item.strYoutube;
 		instruction.innerHTML = item.strInstructions;
-	} catch (error) {
-		console.error("Error fetching an item detail:", error);
 	}
 }
 
+async function searchItems(name) {
+	const url = `http://www.themealdb.com/api/json/v1/1/search.php?s=${name}`;
+	const data = await fetchWithCORS(url);
+	if (data.meals) {
+		subList.innerHTML = "";
+		data.meals.forEach((el) => {
+			const meal = document.createElement("li");
+			meal.innerHTML = el.strMeal;
+			meal.addEventListener("click", () => loadItem(el.idMeal));
+
+			subList.appendChild(meal);
+		});
+	} else {
+		subList.innerHTML = "no item available";
+	}
+}
+form.addEventListener("submit", (e) => {
+	e.preventDefault();
+	const item = searchInput.value.trim();
+	if (item) {
+		console.log("search.value", searchInput.value.trim());
+		searchItems(searchInput.value.trim());
+	}
+});
+
 document.addEventListener("DOMContentLoaded", loadList);
-// loadItem(52772);
