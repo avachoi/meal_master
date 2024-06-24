@@ -5,38 +5,45 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Meal Master</title>
 		<link rel="stylesheet" href="styles.css" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Lobster&display=swap"
+			rel="stylesheet"
+		/>
 	</head>
 	<body>
 		<div id="app">
-			<h1>Meal Master</h1>
+			<h1>Meal Master<img src="logo.png" id="logo" /></h1>
 
 			<div id="main">
 				<div id="sideBar">
-					<div id="search">
-						<form id="form">
-							<input
-								type="text"
-								name="itemName"
-								placeholder="meal name"
-								id="searchInput"
-							/>
-							<button type="submit" id="searchBtn">
-								<img src="searchIcon.png" width="50" height="50" />
-							</button>
-						</form>
-					</div>
+					<div id="search"></div>
 
 					<ul id="list"></ul>
 				</div>
-				<ul id="subList"></ul>
+				<div id="sideBar2">
+					<form id="form">
+						<input
+							type="text"
+							name="itemName"
+							placeholder="search meal name"
+							id="searchInput"
+						/>
+						<button type="submit" id="searchBtn">
+							<img src="searchIcon.png" width="50" height="50" />
+						</button>
+					</form>
+					<ul id="subList"></ul>
+				</div>
+
 				<div id="item">
-					<div id="top">
-						<img id="itemImg" src="" />
-						<div id="nameLink">
-							<h3 id="itemName"></h3>
+					<div id="detail">
+						<h3 id="itemName"></h3>
+						<div id="top">
+							<img id="itemImg" src="" />
 							<p id="instruction"></p>
 						</div>
 					</div>
+
 					<div id="noVideo"></div>
 					<iframe
 						id="youtubeLink"

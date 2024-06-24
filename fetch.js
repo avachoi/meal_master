@@ -26,33 +26,13 @@ export async function fetchWithCORS(url) {
 	}
 }
 
-export async function loadList() {
-	const url = `http://www.themealdb.com/api/json/v1/1/categories.php`;
-	const categories = await fetchWithCORS(url);
-	if (categories) {
-		console.log(categories);
-		categories.categories.forEach((cat) => {
-			const category = document.createElement("li");
-			category.innerHTML = cat.strCategory;
-			list.appendChild(category);
-			category.addEventListener("click", () => selectCategory(cat.strCategory));
-		});
-	}
-}
+function convertToParagraphs(text) {
+	const paragraphs = text
+		.split("\r\n")
+		.map((line) => `<p>${line}</p>`)
+		.join("");
 
-export async function selectCategory(category) {
-	const url = `http://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
-	const obj = await fetchWithCORS(url);
-	if (obj) {
-		const meals = obj.meals;
-		subList.innerHTML = ""; // Clear previous meals
-		meals.forEach((el) => {
-			const meal = document.createElement("li");
-			meal.innerHTML = el.strMeal;
-			meal.addEventListener("click", () => loadItem(el.idMeal));
-			subList.appendChild(meal);
-		});
-	}
+	return paragraphs;
 }
 
 export async function loadItem(id) {
@@ -60,8 +40,9 @@ export async function loadItem(id) {
 	const data = await fetchWithCORS(url);
 	if (data) {
 		subList.innerHTML = "";
-		const item = data.meals[0];
 
+		const item = data.meals[0];
+		console.log("item", item);
 		img.src = item.strMealThumb;
 		itemName.innerHTML = item.strMeal;
 
@@ -81,7 +62,38 @@ export async function loadItem(id) {
 			noVideo.innerHTML = "The video is unavailable";
 		}
 
-		instruction.innerHTML = item.strInstructions;
+		instruction.innerHTML = convertToParagraphs(item.strInstructions);
+	}
+}
+
+export async function loadList() {
+	const url = `http://www.themealdb.com/api/json/v1/1/categories.php`;
+	const categories = await fetchWithCORS(url);
+	if (categories) {
+		console.log(categories);
+		categories.categories.forEach((cat) => {
+			const category = document.createElement("li");
+			category.innerHTML = cat.strCategory;
+			list.appendChild(category);
+			category.addEventListener("click", () => selectCategory(cat.strCategory));
+		});
+		await loadItem(52772);
+	}
+}
+
+export async function selectCategory(category) {
+	const url = `http://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
+	const obj = await fetchWithCORS(url);
+	if (obj) {
+		const meals = obj.meals;
+		subList.innerHTML = ""; // Clear previous meals
+
+		meals.forEach((el) => {
+			const meal = document.createElement("li");
+			meal.innerHTML = el.strMeal;
+			meal.addEventListener("click", () => loadItem(el.idMeal));
+			subList.appendChild(meal);
+		});
 	}
 }
 
