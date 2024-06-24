@@ -1,5 +1,6 @@
 #main {
 	display: flex;
+	justify-content: center;
 }
 #top {
 	display: flex;
@@ -62,7 +63,7 @@ li {
 }
 #itemImg {
 	width: 400px;
-	height: 400px;
+	height: 430px;
 }
 #item {
 	width: 1000px;
@@ -97,5 +98,6 @@ p {
 	margin-bottom: 20px;
 }
 iframe {
-	margin-left: 90px;
+	border-radius: 20px;
+	margin-top: 20px;
 }
