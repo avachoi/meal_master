@@ -39,8 +39,6 @@ export async function loadItem(id) {
 	const url = `http://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
 	const data = await fetchWithCORS(url);
 	if (data) {
-		subList.innerHTML = "";
-
 		const item = data.meals[0];
 		console.log("item", item);
 		img.src = item.strMealThumb;
@@ -71,6 +69,7 @@ export async function loadList() {
 	const categories = await fetchWithCORS(url);
 	if (categories) {
 		console.log(categories);
+		subList.innerHTML = "";
 		categories.categories.forEach((cat) => {
 			const category = document.createElement("li");
 			category.innerHTML = cat.strCategory;
