@@ -51,3 +51,10 @@ li {
 #item {
 	width: 800px;
 }
+#instruction {
+	height: 430px;
+	overflow-y: scroll;
+	scrollbar-color: red orange;
+	scrollbar-width: thin;
+	background-color: chartreuse;
+}
