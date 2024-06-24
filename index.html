@@ -3,12 +3,13 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>What To Cook</title>
+		<title>Meal Master</title>
 		<link rel="stylesheet" href="styles.css" />
 	</head>
 	<body>
 		<div id="app">
-			<h1>What to Cook</h1>
+			<h1>Meal Master</h1>
+
 			<div id="main">
 				<div id="sideBar">
 					<div id="search">
@@ -19,7 +20,9 @@
 								placeholder="meal name"
 								id="searchInput"
 							/>
-							<button type="submit" id="searchBtn">Search</button>
+							<button type="submit" id="searchBtn">
+								<img src="searchIcon.png" width="50" height="50" />
+							</button>
 						</form>
 					</div>
 
@@ -30,11 +33,18 @@
 					<div id="top">
 						<img id="itemImg" src="" />
 						<div id="nameLink">
-							<h3 id="itemName">Name</h3>
-							<a id="youtubeLink">youtube</a>
+							<h3 id="itemName"></h3>
+							<div id="instruction"></div>
 						</div>
 					</div>
-					<div id="instruction"></div>
+
+					<iframe
+						id="youtubeLink"
+						width="800px"
+						height="500"
+						src="https://www.youtube.com/embed/tgbNymZ7vqY"
+					>
+					</iframe>
 				</div>
 			</div>
 		</div>

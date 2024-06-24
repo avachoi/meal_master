@@ -3,4 +3,51 @@
 }
 #top {
 	display: flex;
+	height: 500px;
+	background-color: blanchedalmond;
+}
+#app {
+	padding: 50px 100px 5px 100px;
+	width: 1800px;
+	margin: auto;
+	font-family: Arial, Helvetica, sans-serif;
+}
+h1 {
+	text-align: center;
+}
+#sideBar {
+	width: 250px;
+	padding: 20px;
+}
+#searchBtn {
+	background: url(/searchIcon.png) no-repeat;
+	cursor: pointer;
+
+	border: none;
+	padding: 0px;
+}
+#form {
+	display: flex;
+	align-items: center;
+}
+#searchInput {
+	width: 200px;
+	height: 30px;
+}
+li {
+	list-style-type: none;
+	cursor: pointer;
+	padding: 5px;
+}
+#subList {
+	width: 200px;
+	margin-top: 30px;
+	padding: 0px;
+}
+#itemImg {
+	width: 400px;
+	height: 400px;
+}
+#item {
+	width: 800px;
 }

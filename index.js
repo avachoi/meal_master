@@ -58,10 +58,19 @@ async function loadItem(id) {
 	if (data) {
 		subList.innerHTML = "";
 		const item = data.meals[0];
-		// console.log("item", item);
+
 		img.src = item.strMealThumb;
 		itemName.innerHTML = item.strMeal;
-		youtube.href = item.strYoutube;
+
+		const youtubeUrl = item.strYoutube;
+		let videoId = youtubeUrl.split("v=")[1];
+		const ampersandPosition = videoId.indexOf("&");
+		if (ampersandPosition !== -1) {
+			videoId = videoId.substring(0, ampersandPosition);
+		}
+		const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+		youtube.src = embedUrl;
+
 		instruction.innerHTML = item.strInstructions;
 	}
 }
