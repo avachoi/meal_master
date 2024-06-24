@@ -1,5 +1,5 @@
 # Meal Master
-![Screen Shot 2024-06-24 at 3 55 23 PM](https://github.com/avachoi/meal_master/assets/72422987/41215857-7ea8-4aed-8406-4f1568347ccb)
+![Screen Shot 2024-06-24 at 3 58 48 PM](https://github.com/avachoi/meal_master/assets/72422987/7b306303-cd87-47fc-9add-813d3bcde9ad)
 
 
 
