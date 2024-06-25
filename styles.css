@@ -23,11 +23,10 @@ h1 {
 	width: 200px;
 	font-size: 18px;
 	background-color: #f5f5dc;
-	/* color: white; */
 	font-weight: bold;
 	margin-top: 0px;
 	border-radius: 20px;
-	height: 1050px;
+	height: 1080px;
 }
 #searchBtn {
 	background: url(/searchIcon.png) no-repeat;
@@ -52,9 +51,15 @@ li {
 	cursor: pointer;
 	padding: 5px;
 }
+#sideBar2 {
+	border: 3px solid #cdcd58;
+	border-radius: 20px;
+	padding-top: 20px;
+	margin-right: 40px;
+}
 #subList {
 	width: 200px;
-	height: 945px;
+	height: 980px;
 	overflow-y: scroll;
 	scrollbar-color: rgb(97, 97, 97) rgb(232, 232, 232);
 	scrollbar-width: thin;
