@@ -40,12 +40,10 @@ export async function loadItem(id) {
 	const data = await fetchWithCORS(url);
 	if (data) {
 		const item = data.meals[0];
-		console.log("item", item);
 		img.src = item.strMealThumb;
 		itemName.innerHTML = item.strMeal;
 
 		const youtubeUrl = item.strYoutube;
-		console.log("youtubeUrl", youtubeUrl);
 		if (youtubeUrl.length > 0) {
 			noVideo.innerHTML = "";
 			let videoId = youtubeUrl.split("v=")[1];
@@ -68,7 +66,6 @@ export async function loadList() {
 	const url = `http://www.themealdb.com/api/json/v1/1/categories.php`;
 	const categories = await fetchWithCORS(url);
 	if (categories) {
-		console.log(categories);
 		subList.innerHTML = "";
 		categories.categories.forEach((cat) => {
 			const category = document.createElement("li");
@@ -76,7 +73,7 @@ export async function loadList() {
 			list.appendChild(category);
 			category.addEventListener("click", () => selectCategory(cat.strCategory));
 		});
-		await loadItem(52772);
+		await loadItem(52982);
 	}
 }
 
@@ -117,7 +114,6 @@ form.addEventListener("submit", (e) => {
 	e.preventDefault();
 	const item = searchInput.value.trim();
 	if (item) {
-		console.log("search.value", searchInput.value.trim());
 		searchItems(searchInput.value.trim());
 	}
 });
